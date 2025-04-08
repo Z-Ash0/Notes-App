@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:notes_app/core/cubit/notes_cubit.dart';
 import 'package:notes_app/core/database/note_model.dart';
 import 'package:notes_app/core/utils/app_constants.dart';
 import 'package:notes_app/features/notes_view/presentaion/view/notes_view.dart';
 import 'package:path_provider/path_provider.dart';
 
-Box? notesBox;
+Box<NoteModel>? notesBox;
 void main() async {
-  notesBox = await openHiveBox(notesBoxName);
+  WidgetsFlutterBinding.ensureInitialized();
   Hive.registerAdapter(NoteModelAdapter());
+  notesBox = await openHiveBox<NoteModel>(notesBoxName);
   runApp(const NotesApp());
 }
 
@@ -17,14 +20,17 @@ class NotesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const NotesView(),
+      home: BlocProvider(
+        create: (context) => NotesCubit(),
+        child: const NotesView(),
+      ),
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
     );
   }
 }
 
-Future<Box> openHiveBox(String box) async {
+Future<Box<T>> openHiveBox<T>(String box) async {
   if (!Hive.isBoxOpen(box)) {
     Hive.init((await getApplicationDocumentsDirectory()).path);
   }

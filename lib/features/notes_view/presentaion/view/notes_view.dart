@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:notes_app/core/cubit/notes_cubit.dart';
+import 'package:notes_app/core/utils/app_constants.dart';
 import 'package:notes_app/features/notes_view/presentaion/widgets/custom_app_bar.dart';
 import 'package:notes_app/features/notes_view/presentaion/widgets/custom_list_view.dart';
 import 'package:notes_app/features/notes_view/presentaion/widgets/note_modal_bottom_sheet.dart';
 
-class NotesView extends StatelessWidget {
+class NotesView extends StatefulWidget {
   const NotesView({super.key});
-  final List<Color> colorList = const [
-    Color.fromARGB(255, 228, 206, 172),
-    Color.fromARGB(255, 220, 182, 162),
-    Color.fromARGB(255, 163, 129, 95),
-    Color.fromARGB(255, 156, 140, 130),
-    Color.fromARGB(255, 156, 136, 122)
-  ];
+
+  @override
+  State<NotesView> createState() => _NotesViewState();
+}
+
+class _NotesViewState extends State<NotesView> {
+  @override
+  void initState() {
+    BlocProvider.of<NotesCubit>(context).viewNotes();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(20),
+        resizeToAvoidBottomInset: false,
+        body: const Padding(
+          padding: EdgeInsets.all(20),
           child: Column(
             children: [
-              const CustomAppBar(
+              CustomAppBar(
                   title: 'Notes', appBarIcon: FontAwesomeIcons.magnifyingGlass),
               Expanded(
                 child: CustomListView(colorList: colorList),
@@ -39,7 +47,10 @@ class NotesView extends StatelessWidget {
             showModalBottomSheet(
               isScrollControlled: true,
               context: context,
-              builder: (context) => const NoteModalBottomSheet(),
+              builder: (context) => BlocProvider(
+                create: (context) => NotesCubit(),
+                child: const NoteModalBottomSheet(),
+              ),
               barrierColor: Colors.black.withOpacity(0.5),
             );
           },
