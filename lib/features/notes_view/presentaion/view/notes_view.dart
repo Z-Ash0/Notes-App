@@ -17,7 +17,7 @@ class NotesView extends StatefulWidget {
 class _NotesViewState extends State<NotesView> {
   @override
   void initState() {
-    BlocProvider.of<NotesCubit>(context).viewNotes();
+    context.read<NotesCubit>().viewNotes();
     super.initState();
   }
 
@@ -47,10 +47,7 @@ class _NotesViewState extends State<NotesView> {
             showModalBottomSheet(
               isScrollControlled: true,
               context: context,
-              builder: (context) => BlocProvider(
-                create: (context) => NotesCubit(),
-                child: const NoteModalBottomSheet(),
-              ),
+              builder: (context) => const NoteModalBottomSheet(),
               barrierColor: Colors.black.withOpacity(0.5),
             );
           },

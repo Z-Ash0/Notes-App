@@ -8,7 +8,7 @@ const String noteDescription = 'noteDescription';
 const String noteIsDone = 'noteIsDone';
 const String noteCreatedAt = 'noteCreatedAt';
 
-const List<Color> colorList = const [
+const List<Color> colorList = [
   Color.fromARGB(255, 228, 206, 172),
   Color.fromARGB(255, 220, 182, 162),
   Color.fromARGB(255, 163, 129, 95),

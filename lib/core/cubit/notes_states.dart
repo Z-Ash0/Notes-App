@@ -20,8 +20,4 @@ final class NotesCreateFailedState extends InitialState {
 }
 
 //* Notes view states
-final class NotesGetLoadedState extends InitialState {
-  final List<NoteModel> notes;
-
-  NotesGetLoadedState({required this.notes});
-}
+final class NotesGetLoadedState extends InitialState {}

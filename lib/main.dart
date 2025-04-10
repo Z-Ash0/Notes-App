@@ -7,7 +7,7 @@ import 'package:notes_app/core/utils/app_constants.dart';
 import 'package:notes_app/features/notes_view/presentaion/view/notes_view.dart';
 import 'package:path_provider/path_provider.dart';
 
-Box<NoteModel>? notesBox;
+late Box<NoteModel> notesBox;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Hive.registerAdapter(NoteModelAdapter());
@@ -19,13 +19,13 @@ class NotesApp extends StatelessWidget {
   const NotesApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BlocProvider(
-        create: (context) => NotesCubit(),
-        child: const NotesView(),
+    return BlocProvider(
+      create: (context) => NotesCubit(),
+      child: MaterialApp(
+        home: const NotesView(),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark(),
       ),
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
     );
   }
 }

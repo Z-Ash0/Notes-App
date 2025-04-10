@@ -9,13 +9,14 @@ import 'package:notes_app/core/utils/app_constants.dart';
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton(
       {super.key, required this.title, required this.description});
-  final String title, description;
+  final TextEditingController title, description;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NotesCubit, NotesStates>(
       listener: (context, state) {
         if (state is NotesCreateLoadedState) {
+          BlocProvider.of<NotesCubit>(context).viewNotes();
           Navigator.pop(context);
         }
       },
@@ -25,13 +26,13 @@ class CustomElevatedButton extends StatelessWidget {
             : ElevatedButton(
                 onPressed: () {
                   NoteModel note = NoteModel(
-                      title: title,
-                      description: description,
-                      isDone: false,
-                      date: DateFormat('mm/dd/yyyy').format(DateTime.now()),
-                      color: 0xff00ff84);
+                    title: title.text,
+                    description: description.text,
+                    isDone: false,
+                    date: DateFormat('MM/dd/yyyy').format(DateTime.now()),
+                    color: 0xff00ff84,
+                  );
                   context.read<NotesCubit>().addNote(note);
-                  context.read<NotesCubit>().viewNotes();
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: kPrimaryColor,

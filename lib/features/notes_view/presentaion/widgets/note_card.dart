@@ -18,7 +18,7 @@ class NoteCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          NoteListTile(title: note.title, note: note.description),
+          NoteListTile(note: note),
           Padding(
             padding: const EdgeInsets.only(right: 10, bottom: 10),
             child: Text(

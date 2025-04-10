@@ -11,7 +11,8 @@ class NotesCubit extends Cubit<NotesStates> {
   void addNote(NoteModel note) {
     emit(NotesCreateLoadingState());
     try {
-      notesBox!.add(note);
+      notesBox.add(note);
+      viewNotes();
       emit(NotesCreateLoadedState(note: note));
     } catch (e) {
       emit(NotesCreateFailedState(errMsg: e.toString()));
@@ -19,7 +20,12 @@ class NotesCubit extends Cubit<NotesStates> {
   }
 
   void viewNotes() {
-    notes = notesBox?.values.toList();
-    emit(NotesGetLoadedState(notes: notes ?? []));
+    notes = notesBox.values.toList();
+    emit(NotesGetLoadedState());
+  }
+
+  void deleteNote(NoteModel note) {
+    notesBox.delete(note);
+    viewNotes();
   }
 }

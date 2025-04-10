@@ -15,9 +15,9 @@ class _NoteModalBottomSheetState extends State<NoteModalBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(
-          20, 0, 20, MediaQuery.viewInsetsOf(context).bottom),
-      margin: const EdgeInsets.symmetric(vertical: 40),
+      padding: const EdgeInsets.all(40),
+      margin: EdgeInsets.fromLTRB(
+          40, 0, 40, MediaQuery.viewInsetsOf(context).bottom),
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.4,
       ),
@@ -39,8 +39,7 @@ class _NoteModalBottomSheetState extends State<NoteModalBottomSheet> {
             ),
           ),
           CustomElevatedButton(
-              title: titleController.text,
-              description: descriptionController.text),
+              title: titleController, description: descriptionController),
         ],
       ),
     );
