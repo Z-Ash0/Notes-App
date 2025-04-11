@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
-      {super.key, required this.title, required this.appBarIcon});
+      {super.key,
+      required this.title,
+      required this.appBarIcon,
+      this.onPressed});
   final String title;
   final IconData appBarIcon;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
                   color: Colors.white.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12)),
               padding: const EdgeInsets.all(5),
-              child: IconButton(onPressed: () {}, icon: Icon(appBarIcon)))
+              child: IconButton(onPressed: onPressed, icon: Icon(appBarIcon)))
         ],
       ),
     );

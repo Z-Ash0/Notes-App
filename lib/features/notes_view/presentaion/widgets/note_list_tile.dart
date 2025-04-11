@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notes_app/core/cubit/notes_cubit.dart';
 import 'package:notes_app/core/database/note_model.dart';
+import 'package:notes_app/features/notes_view/presentaion/view/edit_note_view.dart';
 
 class NoteListTile extends StatelessWidget {
   const NoteListTile({super.key, required this.note});
@@ -10,6 +11,10 @@ class NoteListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => EditNoteView(note: note)));
+      },
       title: Text(
         note.title,
         style: const TextStyle(color: Colors.black, fontSize: 26),

@@ -4,20 +4,21 @@ part 'note_model.g.dart';
 @HiveType(typeId: 1)
 class NoteModel extends HiveObject {
   @HiveField(0)
-  final String title;
+  String title;
   @HiveField(1)
-  final String description;
+  String description;
   @HiveField(2)
-  final bool isDone;
+  bool isDone;
   @HiveField(3)
   final String date;
   @HiveField(4)
-  final int color;
+  int color;
 
-  NoteModel(
-      {required this.title,
-      required this.description,
-      required this.isDone,
-      required this.date,
-      required this.color});
+  NoteModel({
+    this.title = 'title undefined',
+    this.description = 'no description',
+    this.isDone = false,
+    required this.date,
+    this.color = 0xff00ff84,
+  });
 }
